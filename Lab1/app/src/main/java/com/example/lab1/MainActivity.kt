@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.children
 
 class MainActivity : AppCompatActivity() {
     private val programmingLanguages = arrayOf("C", "C++", "C#", "Java", "Kotlin",
@@ -22,13 +23,21 @@ class MainActivity : AppCompatActivity() {
     }
     set(value)
     {
-        if (selected?.view != null)
-            makeTransparent(selected!!.view)
+        if (selected?.view != null) {
+            if (!viewReinitialized)
+                makeTransparent(selected!!.view)
+            else
+                for (view in programmingLanguagesListView.children)
+                    makeTransparent(view)
+        }
         if (value != null)
             highlight(value.view)
         adapter.selectedPosition = value?.position
+        viewReinitialized = false
         _selected = value
     }
+
+    private var viewReinitialized = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +63,9 @@ class MainActivity : AppCompatActivity() {
             selected = ExpandableListViewItem(view,
                 ExpandableListViewItemPosition(groupIndex, childIndex))
             true
+        }
+        programmingLanguagesListView.setOnGroupCollapseListener {
+            viewReinitialized = true
         }
     }
 
