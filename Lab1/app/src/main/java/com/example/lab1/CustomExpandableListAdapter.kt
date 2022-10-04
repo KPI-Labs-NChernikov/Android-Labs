@@ -41,11 +41,11 @@ class CustomExpandableListAdapter(
         return convertViewCopy
     }
 
-    private fun preserveColor(listPosition: Int, expandedListPosition: Int, view: View)
-    {
+    private fun preserveColor(listPosition: Int, expandedListPosition: Int, view: View) {
         if (selectedPosition != null
             && selectedPosition!!.groupIndex == listPosition
-            && selectedPosition!!.childIndex == expandedListPosition)
+            && selectedPosition!!.childIndex == expandedListPosition
+        )
             highlight(view)
         else
             makeTransparent(view)
