@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Lab2</string>
+    <string name="result_message">You selected: %1$s</string>
+    <string name="question">Please, select the programming language from the list below</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+</resources>
