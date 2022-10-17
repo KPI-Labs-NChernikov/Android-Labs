@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.lab1'
+    namespace 'com.example.lab2'
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.example.lab1"
+        applicationId "com.example.lab2"
         minSdk 21
         targetSdk 32
         versionCode 1
@@ -33,6 +33,10 @@ android {
 }
 
 dependencies {
+    def fragment_version = "1.5.3"
+
+    // Kotlin
+    implementation "androidx.fragment:fragment-ktx:$fragment_version"
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'

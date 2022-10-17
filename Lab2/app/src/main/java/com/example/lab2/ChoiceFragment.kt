@@ -1,12 +1,28 @@
-package com.example.lab1
+package com.example.lab2
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
+import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ExpandableListView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.core.view.children
 
-class MainActivity : AppCompatActivity() {
+class ChoiceFragment : Fragment() {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view = inflater.inflate(R.layout.fragment_choice, container, false)
+        seedHashMap()
+        setUpListView(view)
+        setUpButtons(view)
+        return view
+    }
+
     private lateinit var programmingLanguages: Array<String>
     private val groupName = "Programming languages"
     private lateinit var programmingLanguagesGroups: HashMap<String, Array<String>>
@@ -36,30 +52,22 @@ class MainActivity : AppCompatActivity() {
 
     private var viewReinitialized = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        seedHashMap()
-        setUpListView()
-        setUpButtons()
-    }
-
     private fun seedHashMap() {
         programmingLanguages = resources.getStringArray(R.array.programming_languages)
         programmingLanguagesGroups = HashMap()
         programmingLanguagesGroups[groupName] = programmingLanguages
     }
 
-    private fun setUpListView() {
-        programmingLanguagesListView = findViewById(R.id.programming_languages)
+    private fun setUpListView(view: View) {
+        programmingLanguagesListView = view.findViewById(R.id.programming_languages)
         adapter = CustomExpandableListAdapter(
-            this, arrayOf(groupName),
+            context, arrayOf(groupName),
             programmingLanguagesGroups
         )
         programmingLanguagesListView.setAdapter(adapter)
-        programmingLanguagesListView.setOnChildClickListener { _, view, groupIndex, childIndex, _ ->
+        programmingLanguagesListView.setOnChildClickListener { _, currentView, groupIndex, childIndex, _ ->
             selected = ExpandableListViewItem(
-                view,
+                currentView,
                 ExpandableListViewItemPosition(groupIndex, childIndex)
             )
             true
@@ -69,15 +77,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setUpButtons() {
-        val okButton = findViewById<Button>(R.id.ok_button)
+    private fun setUpButtons(view: View) {
+        val okButton = view.findViewById<Button>(R.id.ok_button)
         okButton.setOnClickListener {
             onOkClicked()
-        }
-
-        val cancelButton = findViewById<Button>(R.id.cancel_button)
-        cancelButton.setOnClickListener {
-            onCancelClicked()
         }
     }
 
@@ -88,25 +91,15 @@ class MainActivity : AppCompatActivity() {
     private fun viewResult() {
         if (selected == null) {
             val toastText = "Please, select the programming language first"
-            val toast = Toast.makeText(applicationContext, toastText, Toast.LENGTH_SHORT)
+            val toast = Toast.makeText(context, toastText, Toast.LENGTH_SHORT)
             toast.show()
             return
         }
-        val resultView = findViewById<TextView>(R.id.result_message)
+        val resultView = requireView().findViewById<TextView>(R.id.result_message)
         val selectedPosition = selected!!.position
         val selectedValue =
             adapter.getChild(selectedPosition.groupIndex, selectedPosition.childIndex).toString()
         resultView.text = getString(R.string.result_message, selectedValue)
         resultView.visibility = View.VISIBLE
-    }
-
-    private fun onCancelClicked() {
-        resetResult()
-    }
-
-    private fun resetResult() {
-        val resultView = findViewById<TextView>(R.id.result_message)
-        resultView.visibility = View.GONE
-        selected = null
     }
 }

@@ -1,3 +1,3 @@
-package com.example.lab1
+package com.example.lab2
 
 data class ExpandableListViewItemPosition(val groupIndex: Int, val childIndex: Int)
