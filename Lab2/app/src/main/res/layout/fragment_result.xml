@@ -6,21 +6,25 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/question"
+        android:id="@+id/result_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/result_message"
+        android:textSize="24sp"
+        android:paddingTop="10dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp" />
+
+    <TextView
+        android:id="@+id/result_language"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:textStyle="bold"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
-        android:text="@string/question"
-        android:textSize="20sp" />
+        android:text="@string/loading"/>
 
-    <com.example.lab2.NoScrollExpandableListView
-        android:id="@+id/programming_languages"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:choiceMode="singleChoice"
-        android:listSelector="@drawable/selector_list_item" />
-    
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,12 +32,13 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/ok_button"
-            style="?attr/materialButtonStyle"
+            android:id="@+id/cancel_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:text="@string/ok" />
+            android:text="@string/cancel"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_marginStart="5dp"
+            />
 
     </LinearLayout>
 

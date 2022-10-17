@@ -1,9 +1,8 @@
 <resources>
     <string name="app_name">Lab2</string>
-    <string name="result_message">You selected: %1$s</string>
+    <string name="result_message">You have chosen: </string>
     <string name="question">Please, select the programming language from the list below</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="loading">loading...</string>
 </resources>
