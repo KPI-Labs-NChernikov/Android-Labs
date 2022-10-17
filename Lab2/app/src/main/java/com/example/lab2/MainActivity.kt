@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
-import androidx.fragment.app.replace
 import com.example.lab2.interfaces.CancelledListener
 import com.example.lab2.interfaces.LanguageSelectedListener
 
@@ -26,12 +25,11 @@ class MainActivity : LanguageSelectedListener, CancelledListener, AppCompatActiv
         fragment.arguments = bundle
         supportFragmentManager.commit {
             replace(R.id.fragment_container_view, fragment)
+            addToBackStack(null)
         }
     }
 
     override fun onCancelled() {
-        supportFragmentManager.commit {
-            replace<ChoiceFragment>(R.id.fragment_container_view)
-        }
+        supportFragmentManager.popBackStack()
     }
 }

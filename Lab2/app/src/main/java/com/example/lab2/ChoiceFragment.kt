@@ -45,6 +45,7 @@ class ChoiceFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_choice, container, false)
+        _selected = null
         seedHashMap()
         setUpListView(view)
         setUpButtons(view)
