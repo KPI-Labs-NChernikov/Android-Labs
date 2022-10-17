@@ -33,8 +33,7 @@ class ResultFragment : Fragment() {
         return view
     }
 
-    private fun setUpSelectedVisualization(view: View)
-    {
+    private fun setUpSelectedVisualization(view: View) {
         selected = requireArguments().getString("selected")
             ?: throw IllegalArgumentException("Provide an argument for a \"selected\" key")
         view.findViewById<TextView>(R.id.result_language).text = selected

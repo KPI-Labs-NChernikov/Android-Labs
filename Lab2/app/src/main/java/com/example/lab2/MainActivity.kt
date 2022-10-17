@@ -8,7 +8,8 @@ import androidx.fragment.app.commit
 import com.example.lab2.interfaces.CancelledListener
 import com.example.lab2.interfaces.LanguageSelectedListener
 
-class MainActivity : LanguageSelectedListener, CancelledListener, AppCompatActivity(R.layout.activity_main) {
+class MainActivity : LanguageSelectedListener, CancelledListener,
+    AppCompatActivity(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
