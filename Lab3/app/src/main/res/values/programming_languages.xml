@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="programming_languages">
+        <item>C</item>
+        <item>C++</item>
+        <item>C#</item>
+        <item>Java</item>
+        <item>Kotlin</item>
+        <item>JavaScript</item>
+        <item>TypeScript</item>
+        <item>Ruby</item>
+        <item>Rust</item>
+    </string-array>
+</resources>
