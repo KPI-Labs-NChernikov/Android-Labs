@@ -2,7 +2,6 @@ package com.example.lab3
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,10 +9,14 @@ import android.widget.Button
 import android.widget.ExpandableListView
 import android.widget.Toast
 import androidx.core.view.children
+import androidx.fragment.app.Fragment
+import com.example.lab3.interfaces.HistoryOpenedListener
 import com.example.lab3.interfaces.LanguageSelectedListener
+
 
 class ChoiceFragment : Fragment() {
     private lateinit var languageSelectedListener: LanguageSelectedListener
+    private lateinit var historyOpenedListener : HistoryOpenedListener
 
     private lateinit var programmingLanguages: Array<String>
     private val groupName = "Programming languages"
@@ -80,14 +83,26 @@ class ChoiceFragment : Fragment() {
         okButton.setOnClickListener {
             viewResult()
         }
+
+        val openButton = view.findViewById<Button>(R.id.open_button)
+        openButton.setOnClickListener {
+            openHistory()
+        }
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+
         try {
             languageSelectedListener = context as LanguageSelectedListener
         } catch (_: ClassCastException) {
             throw ClassCastException("$context must implement ${LanguageSelectedListener::class.simpleName}")
+        }
+
+        try {
+            historyOpenedListener = context as HistoryOpenedListener
+        } catch (_: ClassCastException) {
+            throw ClassCastException("$context must implement ${HistoryOpenedListener::class.simpleName}")
         }
     }
 
@@ -102,5 +117,10 @@ class ChoiceFragment : Fragment() {
         val selectedValue =
             adapter.getChild(selectedPosition.groupIndex, selectedPosition.childIndex).toString()
         languageSelectedListener.onSelected(selectedValue)
+    }
+
+    private fun openHistory()
+    {
+        historyOpenedListener.onOpened()
     }
 }

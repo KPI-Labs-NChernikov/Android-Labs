@@ -1,14 +1,17 @@
 package com.example.lab3
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import com.example.lab3.interfaces.CancelledListener
+import com.example.lab3.interfaces.HistoryOpenedListener
 import com.example.lab3.interfaces.LanguageSelectedListener
 
-class MainActivity : LanguageSelectedListener, CancelledListener,
+
+class MainActivity : LanguageSelectedListener, CancelledListener, HistoryOpenedListener,
     AppCompatActivity(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,5 +35,10 @@ class MainActivity : LanguageSelectedListener, CancelledListener,
 
     override fun onCancelled() {
         supportFragmentManager.popBackStack()
+    }
+
+    override fun onOpened() {
+        val intent = Intent(applicationContext, HistoryActivity::class.java)
+        startActivity(intent)
     }
 }

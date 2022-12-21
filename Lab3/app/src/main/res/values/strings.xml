@@ -5,4 +5,7 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="loading">loading…</string>
+    <string name="history_question">Or, click the button below to view the history:</string>
+    <string name="open">OPEN</string>
+    <string name="history">History:</string>
 </resources>
