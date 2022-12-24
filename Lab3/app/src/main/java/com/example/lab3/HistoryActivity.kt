@@ -1,36 +1,107 @@
 package com.example.lab3
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.view.View
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import androidx.room.Room
 import com.example.lab3.data.AppDatabase
 import com.example.lab3.data.ProgrammingLanguageChoice
 import com.example.lab3.data.ProgrammingLanguageChoiceDao
 import kotlinx.coroutines.launch
-import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 
 class HistoryActivity : AppCompatActivity(R.layout.activity_history) {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        val db = Room.databaseBuilder(
-            applicationContext,
-            AppDatabase::class.java, AppDatabase.NAME
-        ).build()
+    private lateinit var dao: ProgrammingLanguageChoiceDao
 
-        Log.d("hello", "Hello world message")
-        var l: List<ProgrammingLanguageChoice>
-        var dao: ProgrammingLanguageChoiceDao
-        lifecycleScope.launch {
-            Log.d("hello", "Hello from lifecycleScope")
-            dao = db.programmingLanguageChoiceDao()
-            dao.insert(ProgrammingLanguageChoice
-                (0, "dasasadsaxa", LocalDateTime.now()))
-            l = dao.getAll()
-            Log.d("hello", l.last().createdAt.toString() + " is a date")
-            Log.d("hello", l.size.toString())
-            Log.d("hello", "Hello from lifecycleScope #2")
-        }
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setUpButtons()
+        initializeDao()
+        lifecycleScope.launch {
+            val languagesHistory = dao.getAll()
+            showLanguagesHistory(languagesHistory)
+        }
+    }
+
+    private fun setUpButtons()
+    {
+        val toMainButton = findViewById<Button>(R.id.to_main_button)
+        toMainButton.setOnClickListener{
+            finish()
+        }
+    }
+
+    private fun initializeDao()
+    {
+        val db = AppDatabase.create(applicationContext)
+        dao = db.programmingLanguageChoiceDao()
+    }
+
+    private fun showLanguagesHistory(languagesHistory: List<ProgrammingLanguageChoice>)
+    {
+        if (languagesHistory.isEmpty())
+        {
+            showNoItemsMessage()
+            return
+        }
+
+        showLanguagesHistoryItems(languagesHistory)
+    }
+
+    private fun showNoItemsMessage()
+    {
+        val loadingView = findViewById<TextView>(R.id.history_languages_list_loading)
+        val noItemsView = findViewById<TextView>(R.id.history_languages_list_no_items)
+        loadingView.visibility = View.GONE
+        noItemsView.visibility = View.VISIBLE
+    }
+
+    private fun showLanguagesHistoryItems(languagesHistory: List<ProgrammingLanguageChoice>)
+    {
+        val loadingView = findViewById<TextView>(R.id.history_languages_list_loading)
+        val listView = findViewById<ListView>(R.id.history_languages_list)
+        val clearButtonView = findViewById<Button>(R.id.clear_button)
+
+        setUpLanguagesHistoryView(languagesHistory)
+        setUpLanguagesHistoryViewButtons()
+
+        loadingView.visibility = View.GONE
+        listView.visibility = View.VISIBLE
+        clearButtonView.visibility = View.VISIBLE
+    }
+
+    private fun setUpLanguagesHistoryView(languagesHistory: List<ProgrammingLanguageChoice>)
+    {
+        val listView = findViewById<ListView>(R.id.history_languages_list)
+
+        val mappedHistory = languagesHistory.map { item ->
+            val formattedCreatedAt = item.createdAt
+                .format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT))
+            "${item.name} (${formattedCreatedAt})"
+        }
+
+        val adapter = ArrayAdapter(
+            applicationContext,
+            android.R.layout.simple_list_item_1,
+            mappedHistory
+        )
+
+        listView.adapter = adapter
+    }
+
+    private fun setUpLanguagesHistoryViewButtons()
+    {
+        val clearButtonView = findViewById<Button>(R.id.clear_button)
+        clearButtonView.setOnClickListener{
+            lifecycleScope.launch {
+                dao.clear()
+                val toastText = "The history was cleared successfully"
+                val toast = Toast.makeText(applicationContext, toastText, Toast.LENGTH_SHORT)
+                toast.show()
+                finish()
+            }
+        }
     }
 }

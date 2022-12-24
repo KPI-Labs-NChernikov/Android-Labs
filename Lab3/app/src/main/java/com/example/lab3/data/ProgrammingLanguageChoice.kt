@@ -11,3 +11,12 @@ data class ProgrammingLanguageChoice(
     val name: String,
     @ColumnInfo(name = "created_at") val createdAt: LocalDateTime
 )
+{
+    companion object
+    {
+        fun create(name: String, createdAt: LocalDateTime) : ProgrammingLanguageChoice
+        {
+            return ProgrammingLanguageChoice(0, name, createdAt)
+        }
+    }
+}

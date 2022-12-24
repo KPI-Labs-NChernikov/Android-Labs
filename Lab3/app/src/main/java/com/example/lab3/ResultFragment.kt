@@ -40,8 +40,8 @@ class ResultFragment : Fragment() {
     }
 
     private fun setUpButtons(view: View) {
-        val okButton = view.findViewById<Button>(R.id.cancel_button)
-        okButton.setOnClickListener {
+        val cancelButton = view.findViewById<Button>(R.id.cancel_button)
+        cancelButton.setOnClickListener {
             cancelledListener.onCancelled()
         }
     }

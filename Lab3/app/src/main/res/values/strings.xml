@@ -8,4 +8,7 @@
     <string name="history_question">Or, click the button below to view the history:</string>
     <string name="open">OPEN</string>
     <string name="history">History:</string>
+    <string name="no_items">No items to show</string>
+    <string name="to_main">To main page</string>
+    <string name="clear">Clear</string>
 </resources>
