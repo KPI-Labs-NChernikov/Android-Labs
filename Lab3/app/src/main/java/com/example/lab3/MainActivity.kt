@@ -10,7 +10,6 @@ import com.example.lab3.interfaces.CancelledListener
 import com.example.lab3.interfaces.HistoryOpenedListener
 import com.example.lab3.interfaces.LanguageSelectedListener
 
-
 class MainActivity : LanguageSelectedListener, CancelledListener, HistoryOpenedListener,
     AppCompatActivity(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
