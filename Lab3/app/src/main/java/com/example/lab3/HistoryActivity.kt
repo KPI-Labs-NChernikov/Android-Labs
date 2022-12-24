@@ -62,14 +62,14 @@ class HistoryActivity : AppCompatActivity(R.layout.activity_history) {
     {
         val loadingView = findViewById<TextView>(R.id.history_languages_list_loading)
         val listView = findViewById<ListView>(R.id.history_languages_list)
-        val clearButtonView = findViewById<Button>(R.id.clear_button)
+        val clearButtonWrapper = findViewById<LinearLayout>(R.id.clear_button_wrapper)
 
         setUpLanguagesHistoryView(languagesHistory)
         setUpLanguagesHistoryViewButtons()
 
         loadingView.visibility = View.GONE
         listView.visibility = View.VISIBLE
-        clearButtonView.visibility = View.VISIBLE
+        clearButtonWrapper.visibility = View.VISIBLE
     }
 
     private fun setUpLanguagesHistoryView(languagesHistory: List<ProgrammingLanguageChoice>)

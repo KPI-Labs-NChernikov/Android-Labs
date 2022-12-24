@@ -25,10 +25,12 @@
         </com.example.lab3.NoScrollListView>
 
         <LinearLayout
+            android:id="@+id/clear_button_wrapper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <Button
                 android:id="@+id/clear_button"
@@ -37,7 +39,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/clear"
-                android:visibility="gone"
                 />
 
         </LinearLayout>
